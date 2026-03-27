@@ -28,7 +28,7 @@ public class Biblioteka implements BibliotekaInterface {
 	@Override
 	public List<Knjiga> pronadjiKnjigu(Autor autor, long isbn, String naslov, String izdavac) {
 		if (autor==null && isbn<=0 && naslov==null && izdavac==null)
-			return null;
+			throw new IllegalArgumentException("Morate uneti bar neki kriterijum za pretragu");
 		
 		List<Knjiga> rezultati = new ArrayList<Knjiga>();
 
