@@ -10,33 +10,42 @@ public class Biblioteka implements BibliotekaInterface {
 
 	@Override
 	public void dodajKnjigu(Knjiga knjiga) {
-		knjige.add(knjiga);
+		if (knjiga == null)
+			throw new NullPointerException("Knjiga ne sme biti null");
 
+		if (knjige.contains(knjiga))
+			throw new IllegalArgumentException("Knjiga vec postoji");
+
+		knjige.add(knjiga);
 	}
 
 	@Override
 	public void obrisiKnjigu(Knjiga knjiga) {
-		knjige.remove(knjiga);
+		if (knjiga == null)
+			throw new NullPointerException("Knjiga ne sme biti null");
 
+		if (!knjige.contains(knjiga))
+			throw new IllegalArgumentException("Knjiga ne postoji");
+
+		knjige.remove(knjiga);
 	}
 
 	@Override
-	public List<Knjiga> VratiSveKnjige() {
+	public List<Knjiga> vratiSveKnjige() {
 		return knjige;
 	}
 
 	@Override
 	public List<Knjiga> pronadjiKnjigu(Autor autor, long isbn, String naslov, String izdavac) {
-		if (autor==null && isbn<=0 && naslov==null && izdavac==null)
-			throw new IllegalArgumentException("Morate uneti bar neki kriterijum za pretragu");
-		
+		if (autor == null && isbn <= 0 && naslov == null && izdavac == null)
+			throw new IllegalArgumentException("Morate uneti bar neki kriterijum pretrage");
+
 		List<Knjiga> rezultati = new ArrayList<Knjiga>();
 
-		for(Knjiga k: knjige)
+		for (Knjiga k : knjige)
 			if (k.getNaslov().toUpperCase().contains(naslov.toUpperCase()))
 				rezultati.add(k);
 
 		return rezultati;
 	}
-
 }
